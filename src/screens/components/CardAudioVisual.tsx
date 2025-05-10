@@ -1,8 +1,9 @@
 import { colors } from "@/src/constants/colors";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
-import { TextFont } from "../../components/TextFont";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { TextFont } from "./TextFont";
 import { generosContenidoAudiovisual } from "@/src/constants/Data/generosContenidoAudiovisual";
 import { ContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
+import { tiposContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
 
 import { StyleProp, ViewStyle } from "react-native";
 
@@ -15,9 +16,10 @@ interface CardAudioVisualProps {
 export function CardAudioVisual({ contenido, isSmall, style }: CardAudioVisualProps) {
   return (
     <View style={[styles.card, style]}>
-      <ImageBackground
-        style={styles.imageBackground}
+      <Image
+        style={styles.image}
         source={{ uri: contenido.imageUrl }}
+        resizeMode="cover"
       />
       <View style={styles.textContainer}>
         <TextFont style={[styles.titleCard, { fontSize: isSmall ? 10 : 12 }]} numberOfLines={2}>
@@ -26,6 +28,11 @@ export function CardAudioVisual({ contenido, isSmall, style }: CardAudioVisualPr
 
         {isSmall && (
            <View>
+            <View style={styles.generoBox}>
+              <TextFont style={[styles.generoText, {fontSize:6, textAlign:"center",paddingTop:5, paddingBottom:-1}]}>
+                {tiposContenidoAudiovisual.find(tipo => tipo.id === contenido.tipoId)?.singular || 'Desconocido'}
+              </TextFont>
+            </View>
             <Text style={styles.descriptionCard} numberOfLines={2}>
               {contenido.descripcion}
             </Text>
@@ -56,13 +63,10 @@ const styles = StyleSheet.create({
     borderBottomColor:colors.purpuraClaro,
     width: 120,
     height: 240,
-    overflow: "hidden",
   },
-  imageBackground: {
+  image: {
     flex: 1,
     width: "100%",
-    resizeMode: "cover",
-    backgroundColor:"white"
   },
   textContainer: {
     padding: 5,

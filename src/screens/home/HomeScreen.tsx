@@ -2,7 +2,7 @@ import { View, StyleSheet, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderBar } from "./components/HeaderBar";
 import { Banner } from "./components/Banner";
-import { MainContent } from "./components/MainContent";
+import { CategoryList } from "./components/CategoryList";
 import { colors } from "@/src/constants/colors"
 
 export function HomeScreen() {
@@ -11,7 +11,7 @@ export function HomeScreen() {
       <StatusBar backgroundColor="rgba(231, 94, 14, 0.67)" barStyle="light-content" />
       <HeaderBar/> 
       <Banner/>
-      <MainContent></MainContent>
+      <CategoryList/>
     </SafeAreaView>
   );
 }

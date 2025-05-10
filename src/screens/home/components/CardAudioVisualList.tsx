@@ -2,12 +2,12 @@ import { View, StyleSheet, FlatList } from "react-native"
 import { ITipoContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
 import { TextFont } from "../../components/TextFont";
 import { colors } from "@/src/constants/colors"
-import { CardAudioVisual } from "./CardAudioVisual";
+import { CardAudioVisual } from "../../components/CardAudioVisual";
 import { contenidosAudiovisuales } from "@/src/constants/Data/contenidosAudiovisuales"
 import { Link } from "expo-router";
 import { ROUTES } from "@/src/constants/navigation/ROUTES";
 
-export function BoxAudioVisual({id, singular, plural} : ITipoContenidoAudiovisual){
+export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudiovisual){
     return (
         <View style={styles.boxContent}>
 
@@ -18,13 +18,13 @@ export function BoxAudioVisual({id, singular, plural} : ITipoContenidoAudiovisua
             <View style={styles.cardContent}>
                 <FlatList
                 data={contenidosAudiovisuales.filter((item) => item.tipoId === id)}
-                keyExtractor={(contendio) => contendio.id.toString()}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={({item})=>(
                     <Link 
                         href={{
-                            pathname: `${ROUTES.DETAIL}${item.id}`,
+                            pathname: `${ROUTES.DETAIL}${"[id]"}`,
                             params: { 
-                            itemData: JSON.stringify(item) 
+                                id: item.id
                             }
                         }}
                     >

@@ -1,6 +1,6 @@
 import { View, FlatList } from "react-native";
 import { tiposContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
-import { BoxAudioVisual } from "./BoxAudioVisual"
+import { CardAudioVisualList } from "./CardAudioVisualList"
 
 export function CategoryList(){
     return(
@@ -8,7 +8,7 @@ export function CategoryList(){
             <FlatList
                 data={tiposContenidoAudiovisual}
                 keyExtractor={(tipo) => tipo.id.toString()}
-                renderItem={({ item }) => <BoxAudioVisual {...item} />}
+                renderItem={({ item }) => <CardAudioVisualList {...item} />}
                 contentContainerStyle={{paddingTop:20, gap:30 }}
                 maxToRenderPerBatch={3}
             />   
