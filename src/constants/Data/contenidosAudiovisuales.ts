@@ -1,4 +1,4 @@
-export interface ContenidoAudiovisual {
+export interface IContenidoAudiovisual {
     id: number;
     nombre: string;
     descripcion: string;
@@ -7,7 +7,7 @@ export interface ContenidoAudiovisual {
     imageUrl: string;
   }
   
-export const contenidosAudiovisuales: ContenidoAudiovisual[] = [
+export const contenidosAudiovisuales: IContenidoAudiovisual[] = [
 {
     id: 1,
     nombre: "Breaking Bad",

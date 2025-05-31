@@ -30,11 +30,9 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
                     >
                         <CardAudioVisual contenido={item} isSmall={false} />
                     </Link>
-                        
-            
-                )}     
+                    )}     
                 horizontal
-                contentContainerStyle={{paddingTop:20,}}
+                contentContainerStyle={styles.separador}
                 ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
                 />
             </View>
@@ -70,6 +68,9 @@ const styles = StyleSheet.create({
     }, 
     cardContent:{ 
         flex:1,
-    }
+    },
+    separador: {
+        paddingTop:20
+    },
 });
 

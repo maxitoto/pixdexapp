@@ -2,13 +2,13 @@ import { colors } from "@/src/constants/colors";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { TextFont } from "./TextFont";
 import { generosContenidoAudiovisual } from "@/src/constants/Data/generosContenidoAudiovisual";
-import { ContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
+import { IContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
 import { tiposContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
 
 import { StyleProp, ViewStyle } from "react-native";
 
 interface CardAudioVisualProps {
-  contenido: ContenidoAudiovisual;
+  contenido: IContenidoAudiovisual;
   isSmall: boolean;
   style?: StyleProp<ViewStyle>;
 }
@@ -29,14 +29,14 @@ export function CardAudioVisual({ contenido, isSmall, style }: CardAudioVisualPr
         {isSmall && (
            <View>
             <View style={styles.generoBox}>
-              <TextFont style={[styles.generoText, {fontSize:6, textAlign:"center",paddingTop:5, paddingBottom:-1}]}>
-                {tiposContenidoAudiovisual.find(tipo => tipo.id === contenido.tipoId)?.singular || 'Desconocido'}
+              <TextFont style={[styles.generoText, styles.textContenido]}>
+TextFont                {tiposContenidoAudiovisual.find(tipo => tipo.id === contenido.tipoId)?.singular || 'Desconocido'}
               </TextFont>
             </View>
             <Text style={styles.descriptionCard} numberOfLines={2}>
               {contenido.descripcion}
             </Text>
-            <TextFont style={{color:colors.verde, fontSize:14, marginVertical:5}}>Genres</TextFont>
+            <TextFont style={styles.textHeadListGenres}>Genres</TextFont>
           </View>
         )}
         
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRightColor:colors.purpuraClaro,
     borderLeftColor:colors.purpuraOscuro,
-    borderStartColor:colors.purpuraOscuro,
+    borderTopColor:colors.purpuraOscuro,
     borderBottomColor:colors.purpuraClaro,
     width: 120,
     height: 240,
@@ -93,6 +93,17 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: colors.lightGray,
     marginTop: 5,
-  }
+  },
+  textContenido: {
+    fontSize:6, 
+    textAlign:"center",
+    paddingTop:5, 
+    paddingBottom:-1
+  },
+  textHeadListGenres: {
+    color:colors.verde, 
+    fontSize:14, 
+    marginVertical:5
+  },
 });
 

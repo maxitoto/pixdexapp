@@ -15,13 +15,13 @@ export function ButtonGame({ backgroundColor, title, description}: buttonGamePro
             {backgroundColor: backgroundColor?? colors.purpura}]
         }>
             
-            <View style={{alignItems: "flex-start" }}>
+            <View style={styles.titleDescContainer}>
                 <TextFont style={styles.title}>{title}</TextFont>
                 <TextFont style={styles.description}>{description}</TextFont>
             </View>
             
-            <View style={{alignItems: "flex-end"}} >
-                <TextFont style={styles.jugar}>Jugar</TextFont>
+            <View style={styles.jugarContainer} >
+                <TextFont style={styles.jugarText}>Jugar</TextFont>
             </View>
             
         </Pressable>
@@ -45,8 +45,17 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
     },
 
-    jugar:{
+    jugarText:{
         fontSize:6,
+    },
+
+    titleDescContainer: {
+        alignItems: "flex-start"
+    },
+    
+    jugarContainer: {
+        alignItems: "flex-end"
     }
+
 
 });
