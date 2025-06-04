@@ -24,7 +24,6 @@ export default function DetailScreen() {
 
 
   return (
-    <View style={{flex:1}}>
       <SafeAreaView style={styles.screenContainer}>
         <StatusBar backgroundColor="rgba(231, 94, 14, 0.67)" barStyle="light-content" />
 
@@ -34,23 +33,20 @@ export default function DetailScreen() {
             iconSize={20} 
             iconColor={colors.lightGray} 
             text={"BACK"} 
+            textSize={12}
             action={() => router.back()}                
           />
         </View>
           
 
         {item && (
-            <View style={styles.cardContainer}>
                 <CardAudioVisual 
                     contenido={item} 
                     isSmall={true} 
-                    style={styles.card}
                 />
-            </View>
         )}
         
       </SafeAreaView>
-    </View>
   );
 }
 
@@ -67,14 +63,4 @@ const styles = StyleSheet.create({
   alertErrorText: {
     backgroundColor:colors.darkRed
   },
-  cardContainer: {
-    flex: 1, 
-    padding: 5, 
-    justifyContent: "flex-start"
-  },
-  card: {
-    flex:1,
-    width: "100%",
-    paddingBottom:25,
-  }
 });

@@ -1,100 +1,92 @@
 import { colors } from "@/src/constants/colors";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { TextFont } from "./TextFont";
+import { View, StyleSheet, Image } from "react-native";
+import { TextFont, TextNormal } from "@/src/screens/Testing/Textos";
 import { generosContenidoAudiovisual } from "@/src/constants/Data/generosContenidoAudiovisual";
 import { IContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
 import { tiposContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
-
-import { StyleProp, ViewStyle } from "react-native";
-import { TextTag } from "./TextTag";
-import { TextSpecial } from "./TextSpecial";
+import { ListCategorias } from "../Testing/ListCategorias";
+import { TagBox } from "../Testing/TagBox";
 
 interface CardAudioVisualProps {
   contenido: IContenidoAudiovisual;
   isSmall: boolean;
-  style?: StyleProp<ViewStyle>;
 }
 
-export function CardAudioVisual({ contenido, isSmall, style }: CardAudioVisualProps) {
+export function CardAudioVisual({ contenido, isSmall }: CardAudioVisualProps) {
   return (
-    <View style={[styles.card, style]}>
+    <View style={[
+      {
+        width: isSmall? "100%" : 150,
+      },
+      styles.container]}>
       <Image
-        style={styles.image}
+        style={[
+          styles.image,
+          isSmall && { flex: 1 },
+          !isSmall && { height: 225},
+        ]}
         source={{ uri: contenido.imageUrl }}
         resizeMode="cover"
       />
-      <View style={styles.textContainer}>
-        <TextFont style={[styles.titleCard, { fontSize: isSmall ? 10 : 12 }]} numberOfLines={2}>
-          {contenido.nombre}
-        </TextFont>
+
+      <View style={{paddingHorizontal:5}}>
+        <TextFont 
+        align={isSmall? "center" : "left"} 
+        size={isSmall ? 20 : 10} 
+        lineHeight={isSmall ? undefined : 15}
+        texto={contenido.nombre}
+        />
 
         {isSmall && (
-           <View>
-            <TextTag texto = {tiposContenidoAudiovisual.find(tipo => tipo.id === contenido.tipoId)?.singular || 'Desconocido'}/>
-            <Text style={styles.descriptionCard} numberOfLines={2}>
-              {contenido.descripcion}
-            </Text>
-            <TextSpecial texto={"Genres"}/>
+          <View style={styles.subContainer}>
+
+            <TagBox>
+              <TextNormal 
+                size={8} 
+                texto={tiposContenidoAudiovisual.find(tipo => tipo.id === contenido.tipoId)?.singular || 'Desconocido'}
+              />
+            </TagBox>
+
+            <TextNormal  size={10} texto={contenido.descripcion}/>
+
+            <TextFont align="left" size={14} color="verde" texto={"Genres"}/>
+
           </View>
         )}
-        
-        <View style={styles.listGenerosTag}>
+          
+        <ListCategorias >
           {contenido.generos.map((genero) => {
             return (
-              <TextTag key={genero} texto={generosContenidoAudiovisual[genero].nombre}/>
+              <TagBox key={genero}>
+                <TextNormal size={8} texto={generosContenidoAudiovisual[genero].nombre}/>
+              </TagBox>
             );
           })}
-        </View>
-          
-      </View>
+        </ListCategorias>
+      </View>    
+    
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
+  container: {
+    height:"100%",
     borderWidth: 2,
     borderRightColor:colors.purpuraClaro,
     borderLeftColor:colors.purpuraOscuro,
     borderTopColor:colors.purpuraOscuro,
     borderBottomColor:colors.purpuraClaro,
-    width: 120,
-    height: 240,
+    marginBottom:5,
   },
   image: {
-    flex: 1,
     width: "100%",
     marginBottom:10
   },
-  textContainer: {
-    padding: 5,
-    height: 90,
-    justifyContent:"center",
-  },
-  titleCard: {
-    marginBottom: 5,
-    color: colors.lightGray,
-  },
-  descriptionCard: {
-    fontSize: 10,
-    color: colors.lightGray,
-    marginTop: 5,
-  },
-  textContenido: {
-    fontSize:6, 
-    textAlign:"center",
-    paddingTop:5, 
-    paddingBottom:-1
-  },
-  textHeadListGenres: {
-    color:colors.verde, 
-    fontSize:14, 
-    marginVertical:5
-  },
-  listGenerosTag: {
-    flexDirection: "row",
-    gap: 5,
-    flexWrap:"wrap"
+  subContainer: {
+    gap:4,
+    alignItems:"flex-start"
   }
 });
 

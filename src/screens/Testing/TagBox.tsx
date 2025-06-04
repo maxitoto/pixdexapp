@@ -1,13 +1,30 @@
-import { colors } from "@/src/constants/colors";
+import { colors, ColorName } from "@/src/constants/colors";
 import { View, StyleSheet } from "react-native";
 
-type props = {
-    children: React.ReactNode,
-}
+type Props = {
+    children: React.ReactNode;
+    backgroundColor?: ColorName;
+    padding?: number;
+    paddingTop?: number;
+    paddingBottom?: number;
+    paddingLeft?: number;
+    paddingRight?: number;
+    
+};
 
-export function TagBox({children}:props) {
+export function TagBox({children, backgroundColor="grisOscuro", padding, paddingBottom, paddingTop, paddingLeft, paddingRight}:Props) {
     return (
-        <View style={[styles.container]}>
+        <View style={[
+            {
+                backgroundColor:colors[backgroundColor],
+                padding:padding,
+                paddingTop: paddingTop,
+                paddingBottom: paddingBottom,
+                paddingLeft: paddingLeft,
+                paddingRight: paddingRight,
+            },
+            styles.container
+            ]}>
             {children}
         </View>
     );
@@ -15,10 +32,8 @@ export function TagBox({children}:props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor:colors.grisOscuro,
         justifyContent: "center",
         alignItems: "center",
         paddingHorizontal:5,
-        alignSelf: "center"
     },
 });

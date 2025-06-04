@@ -7,9 +7,10 @@ type propsTextFont={
     color?: ColorName,
     size?: number,
     align?:"center"|"left"|"right",
+    lineHeight?:number | undefined
 }
 
-export function TextFont({texto="", color="lightGray", size=5, align="center",}:propsTextFont) {
+export function TextFont({texto="", color="lightGray", size=5, align="center", lineHeight}:propsTextFont) {
     const [loaded] = useFonts({
         "PressStart2P-Regular": require("@/assets/fonts/PressStart2P-Regular.ttf"),
     });
@@ -19,6 +20,8 @@ export function TextFont({texto="", color="lightGray", size=5, align="center",}:
                 color:colors[color],
                 fontSize:size,
                 textAlign:align,
+                lineHeight: lineHeight
+                
             },
         ]}>{texto}</Text>;
     return (
@@ -27,6 +30,7 @@ export function TextFont({texto="", color="lightGray", size=5, align="center",}:
                 color:colors[color],
                 fontSize:size,
                 textAlign:align,
+                lineHeight: lineHeight
             },
             styles.textFont
         ]}>{texto}</Text>
@@ -50,7 +54,6 @@ export function TextNormal({texto="", color="lightGray", size=5, align="center",
                 textAlign:align,
                 fontFamily: font
             },
-            styles.text
         ]}>{texto}</Text>
     );
 }

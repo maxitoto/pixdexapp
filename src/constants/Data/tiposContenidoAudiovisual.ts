@@ -5,7 +5,7 @@ export interface ITipoContenidoAudiovisual {
 }
 
 export const tiposContenidoAudiovisual: ITipoContenidoAudiovisual[] = [
-  { id: 1, singular: "serie", plural: "series" },
-  { id: 2, singular: "película", plural: "películas" },
-  { id: 3, singular: "anime", plural: "animes" },
+  { id: 1, singular: "SERIE", plural: "SERIES" },
+  { id: 2, singular: "PELÍCULA", plural: "PELÍCULAS" },
+  { id: 3, singular: "ANIME", plural: "ANIMES" },
 ];
