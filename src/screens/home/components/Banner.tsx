@@ -7,12 +7,12 @@ export function Banner(){
     <View style={styles.buttonGameAreaContainer}>
         <ButtonGame 
         title="Desafío del Ahorcado"
-        description={"Adivina los titulos letra por letra. \n¿Cúantos puedes indentificar?"}
+        description={"Adivina los titulos letra por letra. ¿Cúantos puedes indentificar?"}
         />
         <ButtonGame 
-        backgroundColor={colors.verde} 
+        backgroundColor="verde"
         title="Pixel Reveal"
-        description={'Identifica titulos a partir de imágenes pixeladas. \n¿Cuántos puedes adivinar?'}
+        description={'Identifica titulos a partir de imágenes pixeladas. ¿Cuántos puedes adivinar?'}
         />
     </View>
 );}

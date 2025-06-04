@@ -1,27 +1,28 @@
 import { View, StyleSheet, Pressable} from "react-native"
-import { TextFont } from "../../components/TextFont"
-import {colors} from "@/src/constants/colors";
+import { TextFont, TextNormal } from "@/src/screens/components/Textos"
+import {colors, ColorName} from "@/src/constants/colors";
 
 type buttonGameProp = {
-    backgroundColor ? : string
+    backgroundColor ? : ColorName,
     title ? : string
     description ? : string
 }
 
-export function ButtonGame({ backgroundColor, title, description}: buttonGameProp){
+export function ButtonGame({ backgroundColor="purpura", title="", description=""}: buttonGameProp){
     return(
         <Pressable style={[
             styles.buttonGameContainer, 
-            {backgroundColor: backgroundColor?? colors.purpura}]
+            {backgroundColor: colors[backgroundColor]}]
         }>
             
-            <View style={{alignItems: "flex-start" }}>
-                <TextFont style={styles.title}>{title}</TextFont>
-                <TextFont style={styles.description}>{description}</TextFont>
+            <View style={styles.titleDescContainer}>
+                <TextFont size={12} texto={title} align="left"/>
+                
+                <TextNormal size={8} texto={description} align="left" font="sans-serif"/>
             </View>
             
-            <View style={{alignItems: "flex-end"}} >
-                <TextFont style={styles.jugar}>Jugar</TextFont>
+            <View style={styles.jugarContainer} >
+                <TextFont size={8} texto="Jugar"/>
             </View>
             
         </Pressable>
@@ -34,19 +35,15 @@ const styles = StyleSheet.create({
         padding: 10,
         borderColor: colors.purpuraOscuro,
         borderWidth:4,
+        justifyContent:"space-between"
     },
-
-    title:{
-        fontSize:12,
+    titleDescContainer: {
+        alignItems: "flex-start"
     },
-
-    description:{
-        fontSize:8,
-        flexWrap: "wrap",
-    },
-
-    jugar:{
-        fontSize:6,
+    
+    jugarContainer: {
+        alignItems: "flex-end"
     }
+
 
 });
