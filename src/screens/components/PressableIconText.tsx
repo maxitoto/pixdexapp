@@ -1,7 +1,7 @@
 import { Pressable, View, StyleSheet } from "react-native"
 import { Octicons } from "@expo/vector-icons";
-import { TextFont } from "./TextFont"
-import { colors } from "@/src/constants/colors";
+import { TextFont } from "@/src/screens/Testing/Textos";
+import { colors, ColorName } from "@/src/constants/colors";
  
 type Props = {
     iconName: keyof typeof Octicons.glyphMap,
@@ -9,16 +9,17 @@ type Props = {
     iconColor: string,
     text: string,
     textSize?:number,
+    textColor?:ColorName,
     action?: () => void
 }
 
 export function PressableIconText({iconName, iconSize, iconColor, 
-                                    text, textSize, action}: Props)
+                                    text, textSize, action, textColor="lightGray"}: Props)
 {
     return (
             <Pressable style={styles.Button} onPress={action}>
                 <Octicons name={iconName} size={iconSize} color={iconColor} style={styles.icon} />
-                <TextFont style={{fontSize:textSize}}>{text}</TextFont>
+                <TextFont color={textColor} size={textSize} texto={text}/>
             </Pressable>
     );
 }

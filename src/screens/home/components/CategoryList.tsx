@@ -12,8 +12,6 @@ import { API_URL } from "@/src/constants/urls";
 export function CategoryList(){
     const [tipos, setTipos] = useState<ITipoContenidoAudiovisual[]>([]);
 
-
-    //preguntar al !!!
     useEffect(() => {
         getTipos();
     }, []);
@@ -21,7 +19,6 @@ export function CategoryList(){
     const getTipos = async () => {
         const responseTipos = await fetch(`${API_URL}/tipos`);
         const tiposList:ITipoContenidoAudiovisual[] = await responseTipos.json();
-        console.log(tiposList);
         setTipos(tiposList);
     };
     //----------------------
@@ -29,7 +26,7 @@ export function CategoryList(){
     return(
         <View style={styles.containerList}>
             <FlatList
-                data={tiposContenidoAudiovisual}
+                data={tipos}
                 keyExtractor={(tipo) => tipo.id.toString()}
                 renderItem={({ item }) => <CardAudioVisualList {...item} />}
                 contentContainerStyle={styles.separador}

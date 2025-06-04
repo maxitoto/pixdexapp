@@ -6,6 +6,8 @@ import { IContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisua
 import { tiposContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
 
 import { StyleProp, ViewStyle } from "react-native";
+import { TextTag } from "./TextTag";
+import { TextSpecial } from "./TextSpecial";
 
 interface CardAudioVisualProps {
   contenido: IContenidoAudiovisual;
@@ -28,27 +30,22 @@ export function CardAudioVisual({ contenido, isSmall, style }: CardAudioVisualPr
 
         {isSmall && (
            <View>
-            <View style={styles.generoBox}>
-              <TextFont style={[styles.generoText, styles.textContenido]}>
-TextFont                {tiposContenidoAudiovisual.find(tipo => tipo.id === contenido.tipoId)?.singular || 'Desconocido'}
-              </TextFont>
-            </View>
+            <TextTag texto = {tiposContenidoAudiovisual.find(tipo => tipo.id === contenido.tipoId)?.singular || 'Desconocido'}/>
             <Text style={styles.descriptionCard} numberOfLines={2}>
               {contenido.descripcion}
             </Text>
-            <TextFont style={styles.textHeadListGenres}>Genres</TextFont>
+            <TextSpecial texto={"Genres"}/>
           </View>
         )}
         
-        <View style={styles.generoBox}>
+        <View style={styles.listGenerosTag}>
           {contenido.generos.map((genero) => {
             return (
-              <Text style={styles.generoText} key={genero}>
-                {generosContenidoAudiovisual[genero].nombre}
-              </Text>
+              <TextTag key={genero} texto={generosContenidoAudiovisual[genero].nombre}/>
             );
           })}
         </View>
+          
       </View>
     </View>
   );
@@ -67,6 +64,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: "100%",
+    marginBottom:10
   },
   textContainer: {
     padding: 5,
@@ -76,18 +74,6 @@ const styles = StyleSheet.create({
   titleCard: {
     marginBottom: 5,
     color: colors.lightGray,
-  },
-  generoBox: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 5,
-  },
-  generoText: {
-    color: colors.lightGray,
-    backgroundColor: colors.grisOscuro,
-    fontSize: 8,
-    paddingHorizontal: 4,
-    paddingVertical: 2,
   },
   descriptionCard: {
     fontSize: 10,
@@ -105,5 +91,10 @@ const styles = StyleSheet.create({
     fontSize:14, 
     marginVertical:5
   },
+  listGenerosTag: {
+    flexDirection: "row",
+    gap: 5,
+    flexWrap:"wrap"
+  }
 });
 

@@ -1,6 +1,6 @@
 import { View, StyleSheet, Alert } from "react-native";
 import {colors} from "@/src/constants/colors";
-import { TextFont } from "../../components/TextFont"
+import { TextFont } from "@/src/screens/Testing/Textos"
 import { PressableIconText } from "@/src/screens/components/PressableIconText";
 
 export function HeaderBar() {
@@ -8,7 +8,7 @@ export function HeaderBar() {
     return (
         <View style={styles.headerContent}>
             <View>
-                <TextFont style={styles.textTitle}>Pixdex</TextFont>
+                <TextFont color="purpura" size={20} texto="Pixdex"/>
             </View>
 
             <PressableIconText 
@@ -30,9 +30,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
-
-  textTitle: {
-    color: colors.purpura,
-    fontSize: 20,
-  }
 });
