@@ -1,12 +1,12 @@
 import { View, StyleSheet, FlatList } from "react-native"
 import { ITipoContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
-import { TextFont } from "@/src/screens/Testing/Textos";
+import { TextFont } from "@/src/screens/components/Textos";
 import { colors } from "@/src/constants/colors"
 import { CardAudioVisual } from "../../components/CardAudioVisual";
 import { contenidosAudiovisuales } from "@/src/constants/Data/contenidosAudiovisuales"
 import { Link } from "expo-router";
 import { ROUTES } from "@/src/constants/navigation/ROUTES";
-import { TagBox } from "../../Testing/TagBox";
+import { TagBox } from "../../components/TagBox";
 
 type props = {
     id: number,

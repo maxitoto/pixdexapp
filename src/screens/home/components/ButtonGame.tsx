@@ -1,5 +1,5 @@
 import { View, StyleSheet, Pressable} from "react-native"
-import { TextFont, TextNormal } from "@/src/screens/Testing/Textos"
+import { TextFont, TextNormal } from "@/src/screens/components/Textos"
 import {colors, ColorName} from "@/src/constants/colors";
 
 type buttonGameProp = {

@@ -1,6 +1,6 @@
 import { Pressable, View, StyleSheet } from "react-native"
 import { Octicons } from "@expo/vector-icons";
-import { TextFont } from "@/src/screens/Testing/Textos";
+import { TextFont } from "@/src/screens/components/Textos";
 import { colors, ColorName } from "@/src/constants/colors";
  
 type Props = {

@@ -1,13 +1,8 @@
-
 import { View, Text, StyleSheet} from "react-native";
-import { TextFont } from "./Textos";
+import { TextFont } from "../components/Textos";
 import React from "react";
-import { TagBox } from "./TagBox";
-import { ListCategorias } from "./ListCategorias";
-
-
-
-
+import { TagBox } from "../components/TagBox";
+import { ListCategorias } from "../components/ListCategorias";
 
 
 export function InicioScreen() {

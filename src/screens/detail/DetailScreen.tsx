@@ -1,6 +1,6 @@
 import { View, StatusBar, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TextFont } from "@/src/screens/components/TextFont";
+import { TextNormal } from "@/src/screens/components/Textos";
 import { colors } from "@/src/constants/colors";
 import { CardAudioVisual } from "@/src/screens/components/CardAudioVisual";
 import { contenidosAudiovisuales } from "@/src/constants/Data/contenidosAudiovisuales";
@@ -13,14 +13,22 @@ export default function DetailScreen() {
   const { id } = useLocalSearchParams<TRouteParams>();
   const router = useRouter();
   
-
   //salida en caso de error
   const id_item = id ? parseInt(id) : undefined;
-  if (!id_item) return <View style={styles.alertErrorText}><TextFont>Error, id item expired</TextFont></View>;
+  if (!id_item) return (
+    <View style={styles.alertErrorText}>
+      <TextNormal texto="Error, id item expired" size={10}/>
+    </View>
+
+  );
 
   //y una salida si no se encuentra el VA con id x
   const item = id_item ? contenidosAudiovisuales.find((item) => item.id === id_item) : undefined;
-  if (!item) return <View style={styles.alertErrorText}><TextFont>Item not found</TextFont></View>;
+  if (!item) return ( 
+    <View style={styles.alertErrorText}>
+      <TextNormal texto="Item not found" size={10}/>
+    </View>
+  );
 
 
   return (
@@ -52,9 +60,9 @@ export default function DetailScreen() {
 
 const styles = StyleSheet.create({
   screenContainer: { 
-    flex: 1, 
     backgroundColor: colors.fondo,
     padding: 5,
+    paddingBottom:"100%"
   },
   pressableContainer: {
     alignItems:"flex-start", 

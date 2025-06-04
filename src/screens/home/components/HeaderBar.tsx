@@ -1,6 +1,6 @@
 import { View, StyleSheet, Alert } from "react-native";
 import {colors} from "@/src/constants/colors";
-import { TextFont } from "@/src/screens/Testing/Textos"
+import { TextFont } from "@/src/screens/components/Textos"
 import { PressableIconText } from "@/src/screens/components/PressableIconText";
 
 export function HeaderBar() {

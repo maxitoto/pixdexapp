@@ -1,11 +1,11 @@
 import { colors } from "@/src/constants/colors";
 import { View, StyleSheet, Image } from "react-native";
-import { TextFont, TextNormal } from "@/src/screens/Testing/Textos";
+import { TextFont, TextNormal } from "@/src/screens/components/Textos";
 import { generosContenidoAudiovisual } from "@/src/constants/Data/generosContenidoAudiovisual";
 import { IContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
 import { tiposContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
-import { ListCategorias } from "../Testing/ListCategorias";
-import { TagBox } from "../Testing/TagBox";
+import { ListCategorias } from "./ListCategorias";
+import { TagBox } from "./TagBox";
 
 interface CardAudioVisualProps {
   contenido: IContenidoAudiovisual;
