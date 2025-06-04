@@ -27,9 +27,9 @@
       "favicon": "./assets/favicon.png",
       "output": "server"
     },
-    "plugins": [
-      ["expo-router", {"origin": "http://localhost:8081"}],
-      "expo-font"
-    ]
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

@@ -1,6 +1,5 @@
 import { 
-    ITipoContenidoAudiovisual,
-    tiposContenidoAudiovisual 
+    ITipoContenidoAudiovisual 
 } from "@/src/constants/Data/tiposContenidoAudiovisual";
 
 import { View, FlatList, StyleSheet } from "react-native";
@@ -17,10 +16,16 @@ export function CategoryList(){
     }, []);
 
     const getTipos = async () => {
-        const responseTipos = await fetch(`${API_URL}/tipos`);
-        const tiposList:ITipoContenidoAudiovisual[] = await responseTipos.json();
-        setTipos(tiposList);
-    };
+        try {
+            console.log(`${API_URL}/tipos`);
+            const responseTipos = await fetch(`${API_URL}/tipos`);
+            const tiposList: ITipoContenidoAudiovisual[] = await responseTipos.json();
+            console.log("🟢 Datos cargados:", tiposList);
+            setTipos(tiposList);
+        } catch (error) {
+            console.error("❌ Error al cargar tipos:", error);
+        }
+    }
     //----------------------
 
     return(

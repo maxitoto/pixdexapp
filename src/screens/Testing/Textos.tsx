@@ -14,7 +14,13 @@ export function TextFont({texto="", color="lightGray", size=5, align="center",}:
         "PressStart2P-Regular": require("@/assets/fonts/PressStart2P-Regular.ttf"),
     });
 
-    if (!loaded) return <Text style={styles.text}>{texto}</Text>;
+    if (!loaded) return <Text style={[
+            {
+                color:colors[color],
+                fontSize:size,
+                textAlign:align,
+            },
+        ]}>{texto}</Text>;
     return (
         <Text style={[
             {
@@ -53,9 +59,5 @@ export function TextNormal({texto="", color="lightGray", size=5, align="center",
 const styles = StyleSheet.create({
     textFont: {
         fontFamily: "PressStart2P-Regular",
-        textAlignVertical:"center"
     },
-    text: {
-        textAlignVertical:"center"
-    }
 });
