@@ -3,19 +3,12 @@ import { View, FlatList, StyleSheet } from "react-native";
 import { CardAudioVisualList } from "./CardAudioVisualList"
 import { API_URL } from "@/src/constants/urls"
 import { useEffect, useState } from "react";
+import { fetch } from 'expo/fetch';
 
 async function getTipos(): Promise<ITipoContenidoAudiovisual[]> {
-  console.log(`${API_URL}/tipos`);
-  const responseTipos = await fetch(`${API_URL}/tipos`);
-
-  if (!responseTipos.ok) {
-    throw new Error("Error al obtener tipos");
-  }
-  console.log("-----------");
-  const tipos: ITipoContenidoAudiovisual[] = await responseTipos.json();
-  console.log(tipos);
-  
-  return tipos
+    const responseTipos = await fetch(`${API_URL}/tipos`)
+    const tipos: ITipoContenidoAudiovisual[] = await responseTipos?.json();
+    return tipos
 }
 
 
@@ -28,8 +21,8 @@ export function CategoryList(){
 
     async function obtenerTipos() {
         try {
-        const tiposDict = await getTipos();
-        setTipos(tiposDict);
+        const tipos = await getTipos();
+        setTipos(tipos);
         } catch (error) {
         alert(`FALLO ${error}`);
         console.log("ERROR", error);

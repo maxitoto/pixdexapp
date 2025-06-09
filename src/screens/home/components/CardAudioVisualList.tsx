@@ -18,8 +18,7 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
 
     const buscarContenido = () => {
         // lo hago porque creo porque filter modifica podria manipular el cotenido directamente.
-        const nuevoContenido = contenidosAudiovisuales; 
-        return nuevoContenido.filter(contenido => contenido.tipoId === id);
+        return [...contenidosAudiovisuales].filter(contenido => contenido.tipoId === id);
     } 
 
 
