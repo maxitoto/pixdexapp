@@ -1,4 +1,4 @@
-import {ITipoContenidoAudiovisual, tiposContenidoAudiovisual} from "@/src/constants/Data/tiposContenidoAudiovisual";
+import {ITipoContenidoAudiovisual} from "@/src/constants/Data/tiposContenidoAudiovisual";
 import { View, FlatList, StyleSheet } from "react-native";
 import { CardAudioVisualList } from "./CardAudioVisualList"
 import { API_URL } from "@/src/constants/urls"
@@ -17,7 +17,6 @@ async function getTipos(): Promise<ITipoContenidoAudiovisual[]> {
   
   return tipos
 }
-
 
 
 export function CategoryList(){

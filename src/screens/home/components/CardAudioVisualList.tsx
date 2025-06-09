@@ -15,6 +15,14 @@ type props = {
 }
 
 export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudiovisual){
+
+    const buscarContenido = () => {
+        // lo hago porque creo porque filter modifica podria manipular el cotenido directamente.
+        const nuevoContenido = contenidosAudiovisuales; 
+        return nuevoContenido.filter(contenido => contenido.tipoId === id);
+    } 
+
+
     return (
         <View style={styles.boxContent}>
 
@@ -27,16 +35,16 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
 
         <View style={styles.cardContent}>
             <FlatList
-            data={contenidosAudiovisuales.filter((item) => item.tipoId === id)}
+            data={buscarContenido()}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({item})=>(
                 <Link 
-                    href={{
-                        pathname: `${ROUTES.DETAIL}${"[id]"}`,
-                        params: { 
-                            id: item.id
-                        }
-                    }}
+                href={{
+                    pathname: `${ROUTES.DETAIL}${"[id]"}`,
+                    params: { 
+                        id: item.id
+                    }
+                }}
                 >
                     <CardAudioVisual contenido={item} isSmall={false} />
                 </Link>
