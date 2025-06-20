@@ -1,45 +1,24 @@
-import {ITipoContenidoAudiovisual} from "@/src/constants/Data/tiposContenidoAudiovisual";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
 import { CardAudioVisualList } from "./CardAudioVisualList"
-import { API_URL } from "@/src/constants/urls"
-import { useEffect, useState } from "react";
-import { fetch } from 'expo/fetch';
-
-async function getTipos(): Promise<ITipoContenidoAudiovisual[]> {
-    const responseTipos = await fetch(`${API_URL}/tipos`)
-    const tipos: ITipoContenidoAudiovisual[] = await responseTipos?.json();
-    return tipos
-}
-
+import { useDataContext } from "@/src/context/useDataContext";
+import { LoadingAnimatedIcon } from "@/src/screens/components/LoadingAnimatedIcon";
 
 export function CategoryList(){
-    const [tipos, setTipos] = useState<ITipoContenidoAudiovisual[]>([]);
+    const {tipos, loading } = useDataContext();
 
-    useEffect(() => {
-        obtenerTipos();
-    }, []);
-
-    async function obtenerTipos() {
-        try {
-        const tipos = await getTipos();
-        setTipos(tipos);
-        } catch (error) {
-        alert(`FALLO ${error}`);
-        console.log("ERROR", error);
-        } finally {
-        }
-    }
-
-  
     return(
         <View style={styles.containerList}>
-            <FlatList
-                data={tipos}
-                keyExtractor={(tipo) => tipo.id.toString()}
-                renderItem={({ item }) => <CardAudioVisualList {...item} />}
-                contentContainerStyle={styles.separador}
-                maxToRenderPerBatch={3}
-            />   
+            {loading ? (
+                <LoadingAnimatedIcon size={60}/>
+                ) : (
+                <FlatList
+                    data={tipos}
+                    keyExtractor={(tipo) => tipo.id.toString()}
+                    renderItem={({ item }) => <CardAudioVisualList {...item} />}
+                    contentContainerStyle={styles.separador}
+                    maxToRenderPerBatch={3}
+                />  
+            )}
         </View>
     );
 }
@@ -51,5 +30,5 @@ const styles = StyleSheet.create({
     separador: {
         paddingTop:20, 
         gap:30 
-    }
+    },
 });

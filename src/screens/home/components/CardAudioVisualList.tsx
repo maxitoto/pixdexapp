@@ -1,12 +1,18 @@
 import { View, StyleSheet, FlatList } from "react-native"
-import { ITipoContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
-import { TextFont } from "@/src/screens/components/Textos";
-import { colors } from "@/src/constants/colors"
-import { CardAudioVisual } from "../../components/CardAudioVisual";
-import { contenidosAudiovisuales } from "@/src/constants/Data/contenidosAudiovisuales"
 import { Link } from "expo-router";
 import { ROUTES } from "@/src/constants/navigation/ROUTES";
+
+import { colors } from "@/src/constants/colors"
+import { TextFont } from "@/src/screens/components/Textos";
 import { TagBox } from "../../components/TagBox";
+
+import { ITipoContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
+import { CardAudioVisual } from "../../components/CardAudioVisual";
+import { useDataContext } from "@/src/context/useDataContext";
+import { useState, useEffect } from "react";
+import { IContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
+import { LoadingAnimatedIcon } from "@/src/screens/components/LoadingAnimatedIcon";
+
 
 type props = {
     id: number,
@@ -16,10 +22,22 @@ type props = {
 
 export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudiovisual){
 
-    const buscarContenido = () => {
-        // lo hago porque creo porque filter modifica podria manipular el cotenido directamente.
-        return [...contenidosAudiovisuales].filter(contenido => contenido.tipoId === id);
-    } 
+    const {contenidos} = useDataContext();
+
+    const [loading, setLoading] = useState(true);
+    
+    const [contenidosFiltrados, setContenidosFiltrados] = useState<IContenidoAudiovisual[]>([]);
+
+
+    useEffect(() => {
+        const copia = contenidos.filter(c => c.tipoId === id);
+        setContenidosFiltrados(copia);
+            const timer = setTimeout(() => { 
+                //Leo esto es a modo de ejemplo, hay uno global y otro para los contendos filtrados
+                setLoading(false);
+            }, 4000);
+        
+    }, [contenidos, id]);
 
 
     return (
@@ -33,25 +51,28 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
             
 
         <View style={styles.cardContent}>
+            {(loading? 
+            <LoadingAnimatedIcon size={40}/>:
             <FlatList
-            data={buscarContenido()}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({item})=>(
-                <Link 
-                href={{
-                    pathname: `${ROUTES.DETAIL}${"[id]"}`,
-                    params: { 
-                        id: item.id
-                    }
-                }}
-                >
-                    <CardAudioVisual contenido={item} isSmall={false} />
-                </Link>
-                )}     
-            horizontal
-            contentContainerStyle={styles.separador}
-            ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
+                data={contenidosFiltrados}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({item})=>(
+                    <Link 
+                    href={{
+                        pathname: `${ROUTES.DETAIL}${"[id]"}`,
+                        params: { 
+                            id: item.id
+                        }
+                    }}
+                    >
+                        <CardAudioVisual contenido={item} isSmall={false} />
+                    </Link>
+                    )}     
+                horizontal
+                contentContainerStyle={styles.separador}
+                ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
             />
+            )}
         </View>
                 
             
@@ -82,5 +103,6 @@ const styles = StyleSheet.create({
     separador: {
         paddingTop:20
     },
+
 });
 

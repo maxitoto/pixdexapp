@@ -1,11 +1,11 @@
 import { colors } from "@/src/constants/colors";
 import { View, StyleSheet, Image } from "react-native";
 import { TextFont, TextNormal } from "@/src/screens/components/Textos";
-import { generosContenidoAudiovisual } from "@/src/constants/Data/generosContenidoAudiovisual";
 import { IContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
 import { tiposContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
 import { ListCategorias } from "./ListCategorias";
 import { TagBox } from "./TagBox";
+import { useDataContext } from "@/src/context/useDataContext";
 
 interface CardAudioVisualProps {
   contenido: IContenidoAudiovisual;
@@ -13,6 +13,9 @@ interface CardAudioVisualProps {
 }
 
 export function CardAudioVisual({ contenido, isSmall }: CardAudioVisualProps) {
+
+  const {generos} = useDataContext();
+ 
   return (
     <View style={[
       {
@@ -58,7 +61,7 @@ export function CardAudioVisual({ contenido, isSmall }: CardAudioVisualProps) {
           {contenido.generos.map((genero) => {
             return (
               <TagBox key={genero}>
-                <TextNormal size={8} texto={generosContenidoAudiovisual[genero].nombre}/>
+                <TextNormal size={8} texto={generos[genero].nombre}/>
               </TagBox>
             );
           })}
