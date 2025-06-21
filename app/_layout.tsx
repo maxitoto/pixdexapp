@@ -1,20 +1,24 @@
-import { View , StyleSheet} from 'react-native';
+import { StyleSheet, SafeAreaView, View} from 'react-native';
 import { Slot } from 'expo-router'
 import { ContenidoProvider } from '@/src/context/useDataContext';
+import { colors } from '@/src/constants/colors';
 
 export default function RootLayout() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.screenContainer}>
         <ContenidoProvider>
-          <Slot/>
+            <Slot/>
         </ContenidoProvider>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-  });
+  screenContainer: { 
+    flex:1,
+    backgroundColor: colors.fondo,
+    marginTop: 24,
+    padding: 5,
+  },
+});
 

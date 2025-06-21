@@ -28,15 +28,17 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
     
     const [contenidosFiltrados, setContenidosFiltrados] = useState<IContenidoAudiovisual[]>([]);
 
+    const [isSingle, setIsSingle] = useState(false);
 
     useEffect(() => {
         const copia = contenidos.filter(c => c.tipoId === id);
         setContenidosFiltrados(copia);
+        setIsSingle(copia.length === 1);
             const timer = setTimeout(() => { 
-                //Leo esto es a modo de ejemplo, hay uno global y otro para los contendos filtrados
+                //Leo, esto es a modo de ejemplo, hay un loading global y otro para los contendos filtrados
                 setLoading(false);
             }, 4000);
-        
+        return () => clearTimeout(timer);
     }, [contenidos, id]);
 
 
@@ -45,7 +47,10 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
 
         <View style={styles.textBox}>
             <TagBox backgroundColor="purpura" paddingTop={4}>
-                <TextFont texto={singular} size={10} color="lightGray"/>
+                {(isSingle ?
+                    <TextFont texto={singular} size={10} color="lightGray"/>:
+                    <TextFont texto={plural} size={10} color="lightGray"/>
+                )}
             </TagBox>
         </View>
             

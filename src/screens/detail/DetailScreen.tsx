@@ -32,7 +32,7 @@ export default function DetailScreen() {
 
 
   return (
-      <SafeAreaView style={styles.screenContainer}>
+      <View style={styles.screenContainer}>
         <StatusBar backgroundColor="rgba(231, 94, 14, 0.67)" barStyle="light-content" />
 
         <View style={styles.pressableContainer}>
@@ -54,19 +54,17 @@ export default function DetailScreen() {
                 />
         )}
         
-      </SafeAreaView>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
   screenContainer: { 
-    backgroundColor: colors.fondo,
-    padding: 5,
-    paddingBottom:"100%"
+    gap: 10,
+    paddingBottom:"30%"
   },
   pressableContainer: {
     alignItems:"flex-start", 
-    marginVertical:10
   },
   alertErrorText: {
     backgroundColor:colors.darkRed

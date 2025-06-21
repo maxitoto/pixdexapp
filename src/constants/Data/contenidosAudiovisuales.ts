@@ -516,4 +516,13 @@ export const contenidosAudiovisuales: IContenidoAudiovisual[] = [
     tipoId: 3,
     imageUrl: "https://place-hold.it/400x600",
 },
+{
+    id: 61,
+    nombre: "Uncharted",
+    descripcion:
+    "Nathan Drake es un cazarrecompensas que acaba de encontrar algo que llevaba años buscando.",
+    generos: [1, 2, 3, 5],
+    tipoId: 4,
+    imageUrl: "https://place-hold.it/400x600",
+},
 ];

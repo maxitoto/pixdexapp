@@ -7,7 +7,7 @@ export function CategoryList(){
     const {tipos, loading } = useDataContext();
 
     return(
-        <View style={styles.containerList}>
+        <View style={styles.container}>
             {loading ? (
                 <LoadingAnimatedIcon size={60}/>
                 ) : (
@@ -24,11 +24,11 @@ export function CategoryList(){
 }
 
 const styles = StyleSheet.create({
-    containerList: { 
-        flex: 1,
-    },
     separador: {
         paddingTop:20, 
         gap:30 
     },
+    container: {
+        height:"81%",
+    }
 });
