@@ -1,30 +1,11 @@
 import { View } from "react-native";
 import { Octicons } from "@expo/vector-icons";
-interface HeartProps {
-    size?: number;
-    color?: string;
-    backgroundColor?: string;
-    index?: number;
-}
+import { colors } from "@/src/constants/colors";
 
-export const Heart: React.FC<HeartProps> = ({
-    size = 20,
-    color = "red",
-    backgroundColor = "white",
-    index,
-}) => {
+export function Heart() {
     return (
-        <View
-            style={{
-                width: size,
-                height: size,
-                backgroundColor,
-                borderRadius: size / 2,
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
-            <Octicons name="heart" color={color} size={size - 2} />
+        <View>
+            <Octicons name="heart-fill" color={colors.purpuraClaro} size={20} />
         </View>
     );
-};
+}

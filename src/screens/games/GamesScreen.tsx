@@ -9,26 +9,26 @@ import { ROUTES } from "@/src/constants/navigation/ROUTES";
 import type { Route } from "@/src/constants/navigation/ROUTES";
 import type { ColorName } from "@/src/constants/colors";
 
-type JuegoSlug = "ahorcado" | "pixel-reveal";
+type JuegoSlug = "hangman" | "pixelreveal";
 
 export function GamesScreen() {
     const [isVisible, setIsVisible] = useState(false);
     const [username, onChangeUsername] = useState('Username');
 
     const { select_game } = useLocalSearchParams();
-    console.log(select_game);
-    const dataPorJuego: Record<JuegoSlug, { titulo: string; descripcion: string; color: ColorName; rutaJuego: Route }> = {
+ 
+    const dataPorJuego: Record<JuegoSlug, { titulo: string; descripcion: string; color: ColorName; rutaJuego: string }> = {
         "hangman": {
             titulo: "Hangman Challenge",
             descripcion: "Guess the title of popular TV shows, movies, and anime one letter at a time. You have 5 lives - can you get the highest score?",
             color: "purpuraOscuro",
-            rutaJuego: ROUTES.HANGMAN,
+            rutaJuego: ROUTES.HANGMAN.toString(),
         },
         "pixelreveal": {
             titulo: "Pixel Reveal Challenge",
             descripcion: "Adivina títulos a partir de imágenes pixeladas.",
             color: "verde",
-            rutaJuego: ROUTES.PIXELREVEAL,
+            rutaJuego: ROUTES.PIXELREVEAL.toString(),
         },
     };
 
@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     },
     buttomPlay:{
         justifyContent:"center",
-        alignItems:"center",
+        alignItems:"flex-end",
+        marginRight:10,
     },
     input: {
     color: 'white',
