@@ -1,19 +1,18 @@
-import { StatusBar, View, StyleSheet, TextInput } from "react-native";
-import { TextFont, TextNormal } from "../components/Textos";
-import { BoxContent } from "../components/BoxContent";
-import { PressableIconText } from "../components/PressableIconText";
+import { View, StyleSheet, TextInput } from "react-native";
+import { TextFont, TextNormal } from "@/src/screens/components/Textos";
+import { BoxContent } from "@/src/screens/components/BoxContent";
+import { PressableIconText } from "@/src/screens/components/PressableIconText";
 import { router, useLocalSearchParams } from "expo-router";
 import { ModalExpo } from "@/src/screens/components/Modal";
 import { useState } from "react";
 import { ROUTES } from "@/src/constants/navigation/ROUTES";
-import type { Route } from "@/src/constants/navigation/ROUTES";
 import type { ColorName } from "@/src/constants/colors";
 
 type JuegoSlug = "hangman" | "pixelreveal";
 
 export function GamesScreen() {
     const [isVisible, setIsVisible] = useState(false);
-    const [username, onChangeUsername] = useState('Username');
+    const [username, onChangeUsername] = useState("");
 
     const { select_game } = useLocalSearchParams();
  
@@ -78,7 +77,13 @@ export function GamesScreen() {
                         <TextInput
                             style={styles.input}
                             onChangeText={onChangeUsername}
-                            value={username}                           
+                            value={username}    
+                            placeholder="Enter Username"    
+                            placeholderTextColor={"white"}   
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            spellCheck={false}   
+                            autoComplete="off"     
                         />
                     </BoxContent>
                     <View style={styles.buttomPlay}>
@@ -86,10 +91,13 @@ export function GamesScreen() {
                             <PressableIconText 
                                 text={"START GAME"} 
                                 textSize={12}
-                                action={() => router.push({ 
-                                    pathname: `${info.rutaJuego}[name]`, 
-                                    params: { name: username } 
-                                })}            
+                                action={() => {
+                                    if(!username) return
+                                    router.push({ 
+                                        pathname: `${info.rutaJuego}[name]`, 
+                                        params: { name: username } 
+                                    })
+                                }}            
                             />
                         </BoxContent>     
                     </View>
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
     },
     input: {
     color: 'white',
-    textAlign:"center"
+    textAlign:"center",
   },
   blockContentModal: {
     paddingHorizontal:20,

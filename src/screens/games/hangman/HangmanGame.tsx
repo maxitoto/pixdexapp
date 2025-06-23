@@ -2,17 +2,27 @@ import { router, useLocalSearchParams } from "expo-router";
 import { TextFont, TextNormal } from "@/src/screens/components/Textos";
 import { View, StyleSheet, Image, TextInput } from "react-native";
 import { PressableIconText } from "@/src/screens/components/PressableIconText";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heart } from "@/src/screens/games/hangman/components/Heart";
 import { BoxContent } from "@/src/screens/components/BoxContent";
 import { useDataContext } from "@/src/context/useDataContext";
 import { ModalExpo } from "@/src/screens/components/Modal";
 import { IContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
 import { letters } from "@/src/constants/letters";
+import { useAudioPlayer } from 'expo-audio';
+import { LoadingAnimatedIcon } from "@/src/screens/components/LoadingAnimatedIcon";
+
+const fail = require('@/assets/audio/fail.mp3');
+const victory = require('@/assets/audio/victory.mp3');
+const hit = require('@/assets/audio/hit.mp3');
+const lostGame = require('@/assets/audio/lostgame.mp3');
 
 export function HangmanGame(){
-
-    const { contenidos } = useDataContext();
+    const { contenidos, loading } = useDataContext();
+    const failSong = useAudioPlayer(fail);
+    const victorySong = useAudioPlayer(victory);
+    const hitSong = useAudioPlayer(hit)
+    const lostGameSong = useAudioPlayer(lostGame)
     
     const { name } = useLocalSearchParams();
     const username = name as string;
@@ -28,16 +38,37 @@ export function HangmanGame(){
 
 
     function restarVidas() {
+        failSong.seekTo(0);
+        failSong.play();
         const prevLives = lives;
         setLives(prevLives - 1);
         if((prevLives-1)<= 0) {
             setGuessedLetters(letters.map(letter => letter.toLowerCase()));
+            lostGameSong.seekTo(0);
+            lostGameSong.play();
             alert("Game Over");
-        } 
+        }  
     }
 
+    useEffect(() => {
+        const letrasUnicas = [...new Set(contenidoToGuess.nombre.toLowerCase().replace(/ /g, ''))];
+        const todasAdivinadas = letrasUnicas.every(letra => guessedLetters.includes(letra));
+
+        if (todasAdivinadas && lives > 0) {
+            victorySong.seekTo(0);
+            victorySong.play();
+            alert("You guessed the word!");
+            setGuessedLetters([]);
+            setContenidoToGuess(contenidos[Math.floor(Math.random() * contenidos.length)]);
+        }
+    }, [guessedLetters]);
+
     return (
-        <View style={styles.container}>
+
+        loading || !contenidos.length ? (
+            <LoadingAnimatedIcon size={60}/>
+        ) : (
+            <View style={styles.container}>
             
             <View style={styles.pressableContainer}>
                 <PressableIconText 
@@ -116,7 +147,13 @@ export function HangmanGame(){
                         <TextInput
                             style={styles.input}
                             onChangeText={setGuessedTitles}
-                            value={guessedTitles}                           
+                            value={guessedTitles}          
+                            placeholder="Enter complete title"  
+                            placeholderTextColor={"white"}   
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            spellCheck={false}   
+                            autoComplete="off"                  
                         />
                     </BoxContent>
                     <View style={styles.buttomSend}>
@@ -127,6 +164,8 @@ export function HangmanGame(){
                                 action={() => {
                                     if (contenidoToGuess.nombre.toLowerCase() === guessedTitles?.toLowerCase()) {
                                         alert("You guessed the title correctly!");
+                                        victorySong.seekTo(0);
+                                        victorySong.play();
                                         setGuessedLetters([]);
                                         setGuessedTitles("");
                                         setContenidoToGuess(contenidos[Math.floor(Math.random() * contenidos.length)]);
@@ -154,15 +193,17 @@ export function HangmanGame(){
                                         pointerEvents: guessedLetters.includes(letter.toLowerCase()) ? "none" : "auto",
                                         margin:4,
                                     }
-                                }>
+                                }key={index}>
                                     <PressableIconText 
-                                        key={index}
                                         text={letter} 
                                         textSize={12}
                                         action={() => {
                                             setGuessedLetters(prevLetters => [...prevLetters, letter.toLowerCase()]);
                                             if (!contenidoToGuess.nombre.toLowerCase().includes(letter.toLowerCase())) {
                                                 restarVidas();
+                                            }else{
+                                                hitSong.seekTo(0);
+                                                hitSong.play();
                                             }
                                             setIsVisibleLetterModal(false);
                                         }}         
@@ -178,6 +219,8 @@ export function HangmanGame(){
                 </View>
             </ModalExpo>
         </View>
+        )
+        
     );
 }
 
