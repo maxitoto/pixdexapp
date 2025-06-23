@@ -1,58 +1,82 @@
-import { View, StyleSheet, Button } from "react-native";import React, { useState } from "react"
+import { View, StyleSheet } from "react-native";
+import { useState } from "react";
+
 import { PressableIconText } from "@/src/screens/components/PressableIconText";
+import { ModalExpo } from "@/src/screens/components/Modal";
+import { Filtros } from "@/src/screens/home/components/Filtros";
 
-import {colors} from "@/src/constants/colors";
-import { TextFont } from "@/src/screens/components/Textos"
-
-import { ModalFiltro } from "@/src/screens/home/components/ModalFiltro"
-
-
+import { colors } from "@/src/constants/colors";
+import { TextFont } from "@/src/screens/components/Textos";
+import { useDataFilterContext } from "@/src/context/useDataFilterContext";
+import { useDataContext } from "@/src/context/useDataContext";
 
 export function HeaderBar() {
   const [isVisible, setIsVisible] = useState(false);
 
-  function mostrar(){
+  const { tipos, generos } = useDataContext();
+  const { tiposIdFilter, generosIdFilter, setfiltrados } = useDataFilterContext();
+
+  function mostrar() {
     setIsVisible(true);
   }
 
-  function ocultar(){
+  function ocultar() {
     setIsVisible(false);
   }
 
-    return (
-        <View style={styles.headerContent}>
+  function aplicarYCerrar() {
+    const tiposfiltrados = tipos.filter(e => tiposIdFilter.includes(e.id));
+    const generosfiltrados = generos.filter(e => generosIdFilter.includes(e.id));
 
-          <View>
-              <TextFont color="purpura" size={20} texto="Pixdex"/>
-          </View>
+    setfiltrados({
+      tipos: tiposfiltrados,
+      genero: generosfiltrados
+    });
 
-          <PressableIconText 
-            iconName={"gear"} 
-            iconSize={12} 
-            iconColor={colors.lightGray} 
-            text={"Filtrar"}   
-            textSize={10}  
-            action={mostrar}      
+    ocultar();
+  }
+
+
+  return (
+    <View style={styles.headerContent}>
+      <View>
+        <TextFont color="purpura" size={20} texto="Pixdex" />
+      </View>
+
+      <PressableIconText
+        iconName={"gear"}
+        iconSize={12}
+        iconColor={colors.lightGray}
+        text={"Filtrar"}
+        textSize={10}
+        action={mostrar}
+      />
+
+      <ModalExpo visible={isVisible} onModalClose={ocultar}>
+        <Filtros />
+        <View style={styles.botones}>
+          <PressableIconText text="CANCEL" textSize={15} action={ocultar} />
+          <PressableIconText
+            text="APPLY FILTERS"
+            textSize={15}
+            action={aplicarYCerrar}
           />
-
-          <ModalFiltro visible={isVisible} onModalClose={ocultar}>
-              <Button title="Cerrar" onPress={ocultar} />
-              <TextFont size={50} color="purpuraClaro" texto="react modal"/>
-              <TextFont size={50} color="purpuraClaro" texto="react modal"/>
-              <TextFont size={50} color="purpuraClaro" texto="react modal"/>
-              <TextFont size={50} color="purpuraClaro" texto="react modal"/>
-              <TextFont size={50} color="purpuraClaro" texto="react modal"/>
-              <TextFont size={50} color="purpuraClaro" texto="react modal"/>
-          </ModalFiltro>
-
         </View>
-    );
+      </ModalExpo>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   headerContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
+  botones: {
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
+    alignItems: "flex-end",
   },
 });

@@ -1,4 +1,4 @@
-// src/context/ContenidoContext.tsx
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getContenidos } from '@/src/services/contenidoService';
 import { getTipos } from '@/src/services/tipoServices';
@@ -8,14 +8,14 @@ import type { IContenidoAudiovisual } from '@/src/constants/Data/contenidosAudio
 import type { ITipoContenidoAudiovisual } from '@/src/constants/Data/tiposContenidoAudiovisual';
 import type { IGeneroContenidoAudiovisual } from '@/src/constants/Data/generosContenidoAudiovisual';
 
-interface ContenidoContextType {
+interface IContenidoContextType {
   contenidos: IContenidoAudiovisual[];
   tipos: ITipoContenidoAudiovisual[];
   generos: IGeneroContenidoAudiovisual[];
   loading: boolean;
 }
 
-const ContenidoContext = createContext<ContenidoContextType | null>(null);
+const ContenidoContext = createContext<IContenidoContextType | null>(null);
 
 export const ContenidoProvider = ({ children }: { children: React.ReactNode }) => {
   const [contenidos, setContenidos] = useState<IContenidoAudiovisual[]>([]);

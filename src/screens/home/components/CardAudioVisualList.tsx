@@ -4,14 +4,17 @@ import { ROUTES } from "@/src/constants/navigation/ROUTES";
 
 import { colors } from "@/src/constants/colors"
 import { TextFont } from "@/src/screens/components/Textos";
-import { TagBox } from "../../components/TagBox";
+import { TagBox } from "@/src/screens/components/TagBox";
 
 import { ITipoContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAudiovisual";
-import { CardAudioVisual } from "../../components/CardAudioVisual";
+import { CardAudioVisual } from "@/src/screens/components/CardAudioVisual";
 import { useDataContext } from "@/src/context/useDataContext";
 import { useState, useEffect } from "react";
 import { IContenidoAudiovisual } from "@/src/constants/Data/contenidosAudiovisuales";
 import { LoadingAnimatedIcon } from "@/src/screens/components/LoadingAnimatedIcon";
+import { useDataFilterContext } from "@/src/context/useDataFilterContext";
+import { BoxContent } from "@/src/screens/components/BoxContent";
+
 
 
 type props = {
@@ -21,6 +24,7 @@ type props = {
 }
 
 export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudiovisual){
+    const { filtrados } = useDataFilterContext();
 
     const {contenidos} = useDataContext();
 
@@ -31,19 +35,24 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
     const [isSingle, setIsSingle] = useState(false);
 
     useEffect(() => {
-        const copia = contenidos.filter(c => c.tipoId === id);
+        let copia = contenidos.filter(c => c.tipoId === id);
+
+        const generosFiltradosId = filtrados.genero?.map(g => g.id) || [];
+
+        if (generosFiltradosId.length > 0) {
+            copia = copia.filter(c =>
+            c.generos?.some(g => generosFiltradosId.includes(g))
+            );
+        }
+
         setContenidosFiltrados(copia);
         setIsSingle(copia.length === 1);
-            const timer = setTimeout(() => { 
-                //Leo, esto es a modo de ejemplo, hay un loading global y otro para los contendos filtrados
-                setLoading(false);
-            }, 4000);
-        return () => clearTimeout(timer);
-    }, [contenidos, id]);
+        setLoading(false);
+    }, [contenidos, id, filtrados.genero]);
 
 
     return (
-        <View style={styles.boxContent}>
+        <BoxContent paddingHorizontal={10}>
 
         <View style={styles.textBox}>
             <TagBox backgroundColor="purpura" paddingTop={4}>
@@ -59,20 +68,26 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
             {(loading? 
             <LoadingAnimatedIcon size={40}/>:
             <FlatList
+                ListEmptyComponent={
+                <View style={styles.listEmpty}>
+                        <TextFont color="lightGray"  size={20} texto="No hay contenidos"/>
+                </View>
+                }
                 data={contenidosFiltrados}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({item})=>(
-                    <Link 
-                    href={{
-                        pathname: `${ROUTES.DETAIL}${"[id]"}`,
-                        params: { 
-                            id: item.id
-                        }
-                    }}
-                    >
+                renderItem={({ item }) => {
+                    return (
+                        <Link
+                        href={{
+                            pathname: `${ROUTES.DETAIL}[id]`,
+                            params: { id: item.id },
+                        }}
+                        >
                         <CardAudioVisual contenido={item} isSmall={false} />
-                    </Link>
-                    )}     
+                        </Link>
+                    );
+                }}
+                        
                 horizontal
                 contentContainerStyle={styles.separador}
                 ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
@@ -81,18 +96,11 @@ export function CardAudioVisualList({id, singular, plural} : ITipoContenidoAudio
         </View>
                 
             
-        </View>
+        </BoxContent>
     );
 }
 
 const styles = StyleSheet.create({
-    boxContent: {
-        borderWidth:4,
-        borderColor:colors.grisOscuro,
-        position:"relative",
-        paddingHorizontal:10,
-        height:350,
-    },
     textBox: {
         position:"absolute",
         top:-12,
@@ -108,6 +116,11 @@ const styles = StyleSheet.create({
     separador: {
         paddingTop:20
     },
+    listEmpty: {
+        flex:1, 
+        justifyContent:"center", 
+        alignItems:"center"
+    }
 
 });
 

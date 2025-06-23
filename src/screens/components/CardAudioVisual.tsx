@@ -6,6 +6,7 @@ import { tiposContenidoAudiovisual } from "@/src/constants/Data/tiposContenidoAu
 import { ListCategorias } from "./ListCategorias";
 import { TagBox } from "./TagBox";
 import { useDataContext } from "@/src/context/useDataContext";
+import { Platform } from "react-native";
 
 interface CardAudioVisualProps {
   contenido: IContenidoAudiovisual;
@@ -17,11 +18,19 @@ export function CardAudioVisual({ contenido, isSmall }: CardAudioVisualProps) {
   const {generos} = useDataContext();
  
   return (
-    <View style={[
-      {
-        width: isSmall? "100%" : 150,
-      },
-      styles.container]}>
+      <View style={[
+        {
+          width: isSmall ? "100%" : 150,
+          flex: isSmall ? 1 : 0,
+          marginBottom: isSmall 
+            ? Platform.OS === "web"
+              ? 0
+              : "10%"
+            : 0,
+          height: !isSmall ? "99%" : undefined
+        },
+        styles.container
+      ]}>
       <Image
         style={[
           styles.image,
@@ -58,10 +67,10 @@ export function CardAudioVisual({ contenido, isSmall }: CardAudioVisualProps) {
         )}
           
         <ListCategorias >
-          {contenido.generos.map((genero) => {
+          {contenido.generos.map((genero) => {      
             return (
               <TagBox key={genero}>
-                <TextNormal size={8} texto={generos[genero].nombre}/>
+                <TextNormal size={8} texto={generos.find(g => g.id === genero)?.nombre}/>
               </TagBox>
             );
           })}
@@ -75,13 +84,11 @@ export function CardAudioVisual({ contenido, isSmall }: CardAudioVisualProps) {
 
 const styles = StyleSheet.create({
   container: {
-    height:"100%",
     borderWidth: 2,
     borderRightColor:colors.purpuraClaro,
     borderLeftColor:colors.purpuraOscuro,
     borderTopColor:colors.purpuraOscuro,
     borderBottomColor:colors.purpuraClaro,
-    marginBottom:5,
   },
   image: {
     width: "100%",

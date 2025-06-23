@@ -6,14 +6,17 @@ type buttonGameProp = {
     backgroundColor ? : ColorName,
     title ? : string
     description ? : string
+    action?: () => void
 }
 
-export function ButtonGame({ backgroundColor="purpura", title="", description=""}: buttonGameProp){
+export function ButtonGame({ backgroundColor="purpura", title="", description="", action}: buttonGameProp){
     return(
         <Pressable style={[
             styles.buttonGameContainer, 
             {backgroundColor: colors[backgroundColor]}]
-        }>
+        }
+        onPress={action}
+        >
             
             <View style={styles.titleDescContainer}>
                 <TextFont size={12} texto={title} align="left"/>

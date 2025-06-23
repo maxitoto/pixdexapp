@@ -61,7 +61,7 @@ export default function DetailScreen() {
 const styles = StyleSheet.create({
   screenContainer: { 
     gap: 10,
-    paddingBottom:"30%"
+    flex:1,
   },
   pressableContainer: {
     alignItems:"flex-start", 

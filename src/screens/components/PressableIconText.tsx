@@ -1,24 +1,26 @@
-import { Pressable, View, StyleSheet } from "react-native"
+import { Pressable, StyleSheet } from "react-native"
 import { Octicons } from "@expo/vector-icons";
 import { TextFont } from "@/src/screens/components/Textos";
 import { colors, ColorName } from "@/src/constants/colors";
  
 type Props = {
-    iconName: keyof typeof Octicons.glyphMap,
-    iconSize: number,
-    iconColor: string,
+    iconName?: keyof typeof Octicons.glyphMap,
+    iconSize?: number,
+    iconColor?: string,
     text: string,
     textSize?:number,
     textColor?:ColorName,
     action?: () => void
 }
 
-export function PressableIconText({iconName, iconSize, iconColor, 
+export function PressableIconText({iconName, iconSize = 5, iconColor = "white", 
                                     text, textSize, action, textColor="lightGray"}: Props)
 {
     return (
             <Pressable style={styles.Button} onPress={action}>
-                <Octicons name={iconName} size={iconSize} color={iconColor} style={styles.icon} />
+              {(iconName && 
+              <Octicons name={iconName} size={iconSize} color={iconColor} style={styles.icon} />
+              )}
                 <TextFont color={textColor} size={textSize} texto={text}/>
             </Pressable>
     );
