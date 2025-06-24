@@ -3,7 +3,7 @@ import { TextFont, TextNormal } from "@/src/screens/components/Textos";
 import { BoxContent } from "@/src/screens/components/BoxContent";
 import { PressableIconText } from "@/src/screens/components/PressableIconText";
 import { router, useLocalSearchParams } from "expo-router";
-import { ModalExpo } from "@/src/screens/components/Modal";
+import { ModalExpo } from "@/src/screens/components/ModalExpo";
 import { useState } from "react";
 import { ROUTES } from "@/src/constants/navigation/ROUTES";
 import type { ColorName } from "@/src/constants/colors";
