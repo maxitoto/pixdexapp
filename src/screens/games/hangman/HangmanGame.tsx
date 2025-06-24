@@ -3,7 +3,7 @@ import { TextFont, TextNormal } from "@/src/screens/components/Textos";
 import { View, StyleSheet, Image, TextInput } from "react-native";
 import { PressableIconText } from "@/src/screens/components/PressableIconText";
 import { useEffect, useState } from "react";
-import { Heart } from "@/src/screens/games/hangman/components/Heart";
+import { Heart } from "@/src/screens/games/hangman/components/HeartIcon";
 import { BoxContent } from "@/src/screens/components/BoxContent";
 import { useDataContext } from "@/src/context/useDataContext";
 import { ModalExpo } from "@/src/screens/components/Modal";
