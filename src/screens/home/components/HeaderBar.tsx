@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 import { useState } from "react";
 
 import { PressableIconText } from "@/src/screens/components/PressableIconText";
-import { ModalExpo } from "@/src/screens/components/Modal";
+import { ModalExpo } from "@/src/screens/components/ModalExpo";
 import { Filtros } from "@/src/screens/home/components/Filtros";
 
 import { colors } from "@/src/constants/colors";
