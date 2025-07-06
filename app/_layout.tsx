@@ -1,4 +1,5 @@
-import { StyleSheet, SafeAreaView, View, Platform, StatusBar } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Platform } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { Slot } from 'expo-router';
 import { ContenidoProvider } from '@/src/context/useDataContext';
 import { colors } from '@/src/constants/colors';
@@ -8,7 +9,7 @@ export default function RootLayout() {
 
   return (
     <Container style={styles.screenContainer}>
-      <StatusBar backgroundColor="rgba(231, 94, 14, 0.67)" barStyle="light-content" />
+      <StatusBar style='light'/>
       <ContenidoProvider>
         <Slot />
       </ContenidoProvider>
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: colors.fondo,
-    marginTop: Platform.OS === 'web' ? 0 : 24,
-    padding: 5,
+    marginTop: Platform.OS === 'web' ? 0 : "5.7%",
+    paddingHorizontal: 5,
   },
 });

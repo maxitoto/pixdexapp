@@ -27,6 +27,9 @@ export function HangmanGame(){
     const { name } = useLocalSearchParams();
     const username = name as string;
 
+    const [score, setScore] = useState<number>(0);
+
+
     const [isVisibleTitleModal, setIsVisibleTitleModal] = useState(false);
     const [isVisibleLetterModal, setIsVisibleLetterModal] = useState(false);
 
@@ -35,7 +38,6 @@ export function HangmanGame(){
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const [guessedTitles, setGuessedTitles] = useState<string>();
     const [contenidoToGuess, setContenidoToGuess] = useState<IContenidoAudiovisual>(contenidos[Math.floor(Math.random() * contenidos.length)]);
-
 
     function restarVidas() {
         failSong.seekTo(0);
@@ -60,6 +62,8 @@ export function HangmanGame(){
             alert("You guessed the word!");
             setGuessedLetters([]);
             setContenidoToGuess(contenidos[Math.floor(Math.random() * contenidos.length)]);
+            const scorewin = score + 1;
+            setScore(scorewin);
         }
     }, [guessedLetters]);
 
@@ -94,8 +98,11 @@ export function HangmanGame(){
                     </View>
                 }
                 
-
-                <TextNormal texto={username} size={15}/>
+                <View>
+                   <TextNormal texto={username} size={15}/> 
+                   <TextNormal texto={`Score: ${score}`} size={15}/>
+                </View>
+                
             </View>
             <BoxContent>
                 <View style={styles.subContainer}>
@@ -168,6 +175,8 @@ export function HangmanGame(){
                                         victorySong.play();
                                         setGuessedLetters([]);
                                         setGuessedTitles("");
+                                        const scorewin = score + 1;
+                                        setScore(scorewin);
                                         setContenidoToGuess(contenidos[Math.floor(Math.random() * contenidos.length)]);
                                     }                                        
                                     else {

@@ -1,5 +1,4 @@
-import { View, StatusBar, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View, StyleSheet } from "react-native";
 import { TextNormal } from "@/src/screens/components/Textos";
 import { colors } from "@/src/constants/colors";
 import { CardAudioVisual } from "@/src/screens/components/CardAudioVisual";
@@ -33,7 +32,6 @@ export default function DetailScreen() {
 
   return (
       <View style={styles.screenContainer}>
-        <StatusBar backgroundColor="rgba(231, 94, 14, 0.67)" barStyle="light-content" />
 
         <View style={styles.pressableContainer}>
           <PressableIconText 
