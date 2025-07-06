@@ -39,6 +39,8 @@ export function HangmanGame(){
     const [guessedTitles, setGuessedTitles] = useState<string>();
     const [contenidoToGuess, setContenidoToGuess] = useState<IContenidoAudiovisual>(contenidos[Math.floor(Math.random() * contenidos.length)]);
 
+    console.log(contenidoToGuess.nombre)
+
     function restarVidas() {
         failSong.seekTo(0);
         failSong.play();

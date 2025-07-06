@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: colors.fondo,
-    marginTop: Platform.OS === 'web' ? 0 : "5.7%",
+    paddingTop: Platform.OS === 'web' ? 0 : 42,
     paddingHorizontal: 5,
   },
 });
